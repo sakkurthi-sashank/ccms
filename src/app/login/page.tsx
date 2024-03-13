@@ -1,43 +1,67 @@
-"use client";
+import { SubmitButton } from '@/components/auth-button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { createClient } from '@/utils/supabase/server'
+import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { Label } from "@/components/ui/label";
-import { Icons } from "@/components/icons";
+export default function LoginPage({
+  searchParams,
+}: {
+  searchParams: { message: string }
+}) {
+  const signIn = async (formData: FormData) => {
+    'use server'
 
-export default function LoginPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+    const supabase = createClient()
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (error) {
+      return redirect('/login?message=User not found or password is incorrect')
+    }
+
+    return redirect('/')
+  }
+
+  const signUp = async (formData: FormData) => {
+    'use server'
+
+    const origin = headers().get('origin')
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+    const supabase = createClient()
+
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${origin}/auth/callback`,
+      },
+    })
+
+    if (error) {
+      return redirect('/login?message=Could not authenticate user')
+    }
+
+    return redirect(
+      '/login?message=Your account has been created successfully and Login to continue',
+    )
+  }
 
   return (
     <>
       <div className="container relative min-h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-        <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
-          <div
-            className="absolute inset-0 bg-neutral-950"
-            // style={{
-            //   backgroundImage: 'url(/images/srmap_campus.jpg)',
-            // }}
-          >
-            <div className="fixed left-4 top-4 mb-10 flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="icon icon-tabler icon-tabler-prompt"
-                width={40}
-                height={40}
-                viewBox="0 0 24 24"
-                strokeWidth={1.75}
-                stroke="currentColor"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M5 7l5 5l-5 5" />
-                <path d="M13 17l6 0" />
-              </svg>
-            </div>
+        <div className="relative hidden h-full flex-col bg-muted bg-neutral-950 p-10 text-white dark:border-r lg:flex">
+          <div className="flex h-full max-w-xl items-center justify-center">
+            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+              Court Case Management System
+            </h1>
           </div>
         </div>
 
@@ -70,7 +94,7 @@ export default function LoginPage() {
               </p>
             </div>
 
-            <form action="/auth/login" method="post">
+            <form>
               <div className="grid gap-5">
                 <div className="grid gap-3">
                   <Label className="sr-only" htmlFor="email">
@@ -84,7 +108,6 @@ export default function LoginPage() {
                     autoCapitalize="none"
                     autoComplete="email"
                     autoCorrect="off"
-                    disabled={isLoading}
                   />
 
                   <Label className="sr-only" htmlFor="password">
@@ -98,15 +121,9 @@ export default function LoginPage() {
                     autoCapitalize="none"
                     autoComplete="current-password"
                     autoCorrect="off"
-                    disabled={isLoading}
                   />
                 </div>
-                <Button disabled={isLoading}>
-                  {isLoading && (
-                    <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                  )}
-                  Sign In
-                </Button>
+                <SubmitButton formAction={signIn}>Sign In</SubmitButton>
               </div>
 
               <div className="relative my-5">
@@ -120,22 +137,12 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <Button
-                formAction={"/auth/sign-up"}
-                disabled={isLoading}
-                variant="default"
-                className="w-full"
-              >
-                {isLoading && (
-                  <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                )}
-                Sign Up
-              </Button>
+              <SubmitButton formAction={signUp}>Sign Up</SubmitButton>
             </form>
 
-            {error && (
-              <div className="flex flex-col items-center justify-center space-y-2">
-                <p className="text-sm text-red-500">{error}</p>
+            {searchParams?.message && (
+              <div className="text-center text-sm text-red-500">
+                {searchParams.message}
               </div>
             )}
 
@@ -147,5 +154,5 @@ export default function LoginPage() {
         </div>
       </div>
     </>
-  );
+  )
 }
