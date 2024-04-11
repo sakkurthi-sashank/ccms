@@ -1,5 +1,5 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
-import { NextResponse, type NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(request: NextRequest) {
   try {
@@ -55,9 +55,16 @@ export async function middleware(request: NextRequest) {
       },
     )
 
-    await supabase.auth.getUser()
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser()
 
-    return response
+    if (!user) {
+      return NextResponse.redirect(new URL('/login', request.url))
+    }
+
+    return NextResponse.next()
   } catch (e) {
     return NextResponse.next({
       request: {
@@ -68,5 +75,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|login|images).*)'],
 }
