@@ -1,50 +1,49 @@
 'use client'
 
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-// import { useAuth } from '@/hooks/useAuth'
+import { useAuthStore } from '@/store/auth'
+import { createClient } from '@/utils/supabase/client'
 import { LogOut } from 'lucide-react'
-import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 export const UserDropdown = () => {
-  // const { user, logout } = useAuth()
+  const { user } = useAuthStore()
+  const router = useRouter()
+  const supabase = createClient()
+
+  const signOut = async () => {
+    await supabase.auth.signOut()
+    router.push('/login')
+  }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <div className="flex w-full items-center justify-center md:justify-start">
-          <Image
-            height={36}
-            width={36}
-            src={'https://avatars.githubusercontent.com/u/126908332?v=4'}
-            alt="SRM AP Logo"
-            className="rounded-full"
-          />
+          <Avatar>
+            <AvatarImage src={user?.user_metadata.avatar_url || ''} />
+            <AvatarFallback>
+              {user?.email?.slice(0, 2).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
           <div className="ml-2 hidden flex-col items-start md:flex">
             <p className="text-xs font-medium text-gray-700 group-hover:text-gray-900">
-              {/* {user?.displayName} */} Sakkurthi Sashank
+              {user?.user_metadata.full_name ?? user?.email?.split('@')[0]}
             </p>
             <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
-              {/* {user?.emailAddress} */} sakkurthisashank@gmail.com
+              {user?.email}
             </p>
           </div>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          onClick={() =>
-            // logout()
-            console.log('Logout')
-          }
-        >
+        <DropdownMenuItem onClick={signOut} className="cursor-pointer">
           <LogOut className="mr-2 h-4 w-4" />
           <span>Log out</span>
         </DropdownMenuItem>
