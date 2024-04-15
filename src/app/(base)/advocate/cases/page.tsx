@@ -86,6 +86,13 @@ export default async function AdvocateCases() {
                   Full Details
                 </Link>
               </Button>
+              <Button type="submit" variant="outline" asChild size="sm">
+                <Link href={`/advocate/cases/edit/${caseItem.id}`}>
+                  <span className="sr-only">Link</span>
+                  <ExternalLinkIcon className="mr-2 h-4 w-4" />
+                  Edit Case
+                </Link>
+              </Button>
             </div>
           </div>
         ))}

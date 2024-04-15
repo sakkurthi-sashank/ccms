@@ -7,6 +7,11 @@ const fontSans = FontSans({
   variable: '--font-sans',
 })
 
+export const metadata = {
+  title: 'Court Case Management System',
+  description: 'Court Case Management System',
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
