@@ -80,7 +80,7 @@ export default function EditCaseDetails() {
         throw new Error(error.message)
       }
 
-      if (!data || data.status === 'pending') {
+      if (!data || data.status === 'approved') {
         router.push('/advocate/cases')
       }
 
