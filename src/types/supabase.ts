@@ -128,6 +128,30 @@ export type Database = {
           },
         ]
       }
+      contact_us: {
+        Row: {
+          created_at: string
+          display_name: string
+          email: string
+          id: string
+          message: string
+        }
+        Insert: {
+          created_at?: string
+          display_name: string
+          email: string
+          id?: string
+          message: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          email?: string
+          id?: string
+          message?: string
+        }
+        Relationships: []
+      }
       judge_verdicts: {
         Row: {
           case_id: string

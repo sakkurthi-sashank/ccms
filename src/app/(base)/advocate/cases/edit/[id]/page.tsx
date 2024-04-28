@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
@@ -18,6 +17,8 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
 import { useAuthStore } from '@/store/auth'
 import { createClient } from '@/utils/supabase/client'
@@ -47,6 +48,8 @@ export default function EditCaseDetails() {
     title: string
     type: string | null
   }>()
+
+  const [file, setFile] = useState<File | null>(null)
 
   const router = useRouter()
 
@@ -126,7 +129,7 @@ export default function EditCaseDetails() {
   }
 
   return (
-    <Card className="mx-auto mt-5 max-w-4xl">
+    <Card className="mx-auto mb-20 mt-5 max-w-4xl">
       <CardHeader>
         <CardTitle>Edit case details for {caseDetails?.title}</CardTitle>
         <CardDescription>
@@ -203,11 +206,49 @@ export default function EditCaseDetails() {
             />
           </form>
         </Form>
+
+        <div className="mt-5 flex justify-end space-x-4">
+          <Button variant="ghost">Cancel</Button>
+          <Button onClick={form.handleSubmit(onSubmit)}>Submit</Button>
+        </div>
+
+        <Separator className="my-10" />
+
+        <div className="grid w-full max-w-sm items-center gap-1.5">
+          <Label htmlFor="picture">Picture</Label>
+          <Input
+            id="picture"
+            type="file"
+            onChange={(e) => {
+              const file = e.target.files?.[0]
+              if (file) {
+                setFile(file)
+              }
+            }}
+          />
+
+          <div className="flex justify-end space-x-4">
+            <Button
+              onClick={async () => {
+                const supabase = createClient()
+
+                const { data, error } = await supabase.storage
+                  .from('evidence')
+                  .upload(`case-${caseDetails?.id}`, file!)
+
+                if (error) {
+                  console.error(error)
+                  return
+                }
+
+                console.log(data)
+              }}
+            >
+              Upload
+            </Button>
+          </div>
+        </div>
       </CardContent>
-      <CardFooter className="justify-between space-x-2">
-        <Button variant="ghost">Cancel</Button>
-        <Button onClick={form.handleSubmit(onSubmit)}>Submit</Button>
-      </CardFooter>
     </Card>
   )
 }
