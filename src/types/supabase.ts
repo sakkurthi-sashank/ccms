@@ -158,21 +158,21 @@ export type Database = {
           created_at: string
           id: string
           judge_id: string
-          vertict: string | null
+          verdict: string | null
         }
         Insert: {
           case_id: string
           created_at?: string
           id?: string
           judge_id: string
-          vertict?: string | null
+          verdict?: string | null
         }
         Update: {
           case_id?: string
           created_at?: string
           id?: string
           judge_id?: string
-          vertict?: string | null
+          verdict?: string | null
         }
         Relationships: [
           {

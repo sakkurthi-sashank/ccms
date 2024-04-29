@@ -8,6 +8,23 @@ export default async function CaseFullDetailsById({
 }) {
   const supabase = createClient()
 
+  const fetchCaseVerdict = async () => {
+    const { data, error } = await supabase
+      .from('judge_verdicts')
+      .select('*')
+      .eq('case_id', params.id)
+      .single()
+
+    if (error) {
+      console.error(error)
+      return
+    }
+
+    return data?.verdict
+  }
+
+  const caseVerdict = await fetchCaseVerdict()
+
   const { data, error } = await supabase
     .from('case_details')
     .select('*')
@@ -71,6 +88,13 @@ export default async function CaseFullDetailsById({
               <span className="font-semibold text-gray-900">Created at:</span>{' '}
               {formatDate(new Date(data?.created_at!))}
             </p>
+
+            {caseVerdict && (
+              <p>
+                <span className="font-semibold text-gray-900">Verdict:</span>{' '}
+                {caseVerdict}
+              </p>
+            )}
           </div>
         </div>
       </div>
