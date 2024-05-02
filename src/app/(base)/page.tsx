@@ -3,6 +3,7 @@
 import ContactForm from '@/components/contact-form'
 import { FeatureSection } from '@/components/feature-section'
 import { GlobeDemo } from '@/components/globe'
+import { GoogleGeminiEffectDemo } from '@/components/google-gemini-code'
 import Image from 'next/image'
 
 export default function HomePage() {
@@ -10,20 +11,9 @@ export default function HomePage() {
     <>
       <div
         style={{ textAlign: 'center' }}
-        className="flex flex-col items-center justify-between space-y-12 pt-10"
+        className="z-0 flex flex-col items-center justify-between space-y-12 pt-10"
       >
-        <div className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight lg:text-5xl">
-          Court Case Management System
-        </div>
-        <div className="w-1/2">
-          <Image
-            src="https://www.icj-cij.org/sites/default/files/homebanner.jpg"
-            alt=""
-            className="h-[500px] w-full overflow-hidden rounded-md object-cover"
-            width={500}
-            height={500}
-          />
-        </div>
+        <GoogleGeminiEffectDemo />
 
         <FeatureSection />
 
