@@ -2,6 +2,7 @@ import { SubmitButton } from '@/components/auth-button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { createClient } from '@/utils/supabase/server'
+import { IconGavel } from '@tabler/icons-react'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
@@ -57,9 +58,19 @@ export default function LoginPage({
   return (
     <>
       <div className="container relative min-h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-        <div className="relative hidden h-full flex-col bg-muted bg-neutral-950 p-10 text-white dark:border-r lg:flex">
-          <div className="flex h-full max-w-xl items-center justify-center">
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+        <div className="relative hidden h-full flex-col border-r p-10 text-white lg:flex">
+          <div className="flex h-full max-w-xl justify-center">
+            <div
+              style={{
+                backgroundImage:
+                  "url('https://www.icj-cij.org/sites/default/files/homebanner.jpg')",
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                boxShadow: 'inset 0 0 0 2000px rgba(0, 0, 0, 0.5)',
+              }}
+              className="absolute inset-0 z-[-1] bg-cover bg-center"
+            ></div>
+            <h1 className="mt-20 scroll-m-20 pl-24 text-4xl font-extrabold tracking-tight lg:text-5xl">
               Court Case Management System
             </h1>
           </div>
@@ -68,22 +79,7 @@ export default function LoginPage({
         <div className="flex h-screen items-center justify-center lg:p-8">
           <div className="mx-auto flex w-full flex-col justify-center space-y-10 sm:w-[400px]">
             <div className="flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="icon icon-tabler icon-tabler-prompt"
-                width={60}
-                height={60}
-                viewBox="0 0 24 24"
-                strokeWidth={1.75}
-                stroke="currentColor"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M5 7l5 5l-5 5" />
-                <path d="M13 17l6 0" />
-              </svg>
+              <IconGavel size={50} />
             </div>
             <div className="flex flex-col space-y-2 text-center">
               <h1 className="text-2xl font-semibold tracking-tight">

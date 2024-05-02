@@ -22,7 +22,6 @@ export default async function UserCases() {
       .from('case_details')
       .select('*')
       .or(`registered_against_user.eq.${email}, registered_by_user.eq.${email}`)
-      .eq('registered_by_user', email!)
       .order('created_at', { ascending: false })
 
     if (error) {
