@@ -1,100 +1,120 @@
-export const FeatureSection = () => {
+export function FeatureSection() {
   return (
-    <section>
-      <div className="w-full px-4 py-8 sm:py-12">
-        <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-2 lg:items-center lg:gap-x-16">
-          <div className="mx-auto max-w-lg text-center lg:mx-0 ltr:lg:text-left rtl:lg:text-right">
-            <h2 className="text-3xl font-bold sm:text-4xl">
-              Enhance Judicial Efficiency
+    <section className="w-full py-12 md:py-24 lg:py-32">
+      <div className="container px-4 md:px-6">
+        <div className="space-y-6 text-center">
+          <div className="space-y-4">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              Streamline Your Court Cases with Ease
             </h2>
-
-            <p className="mt-4 text-gray-600">
-              Streamline your court&apos;s operations with our advanced Case
-              Management System (CMS). Designed to handle the complexities of
-              modern judicial processes, our CMS ensures accurate case tracking,
-              automated document management, and improved access to case
-              information.
+            <p className="mx-auto max-w-[700px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              A comprehensive court case management system is essential for
+              efficient legal operations.
             </p>
-
-            <a
-              href="#"
-              className="mt-8 inline-block rounded bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-yellow-400"
-            >
-              Learn More
-            </a>
           </div>
-
-          <div className="flex flex-wrap gap-4">
-            {[
-              {
-                title: 'E-Filing',
-                description:
-                  'Submit and manage court documents electronically with ease.',
-              },
-              {
-                title: 'Case Scheduling',
-                description:
-                  'Automate scheduling to optimize courtroom and resource utilization.',
-              },
-              {
-                title: 'Public Access',
-                description:
-                  'Provide secure, real-time access to case information for the public.',
-              },
-              {
-                title: 'Reporting and Analytics',
-                description:
-                  'Generate insightful reports and analytics for informed decision-making.',
-              },
-              {
-                title: 'Document Management',
-                description:
-                  'Efficiently manage and retrieve case files and documents.',
-              },
-              {
-                title: 'Security and Compliance',
-                description:
-                  'Ensure the highest standards of data security and regulatory compliance.',
-              },
-            ].map((feature) => (
-              <a
-                className="block w-80 rounded-xl border border-gray-100 p-4 shadow-sm hover:border-gray-200 hover:ring-1 hover:ring-gray-200 focus:outline-none focus:ring"
-                href="#"
-                key={feature.title}
-              >
-                <span className="inline-block rounded-lg bg-gray-50 p-3">
-                  <svg
-                    className="h-6 w-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M12 14l9-5-9-5-9 5 9 5z"
-                    ></path>
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                    ></path>
-                  </svg>
-                </span>
-
-                <h2 className="mt-2 font-bold">{feature.title}</h2>
-
-                <p className="hidden sm:mt-1 sm:block sm:text-sm sm:text-gray-600">
-                  {feature.description}
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+            <div className="flex flex-col items-center justify-center space-y-4 rounded-lg bg-gray-100 p-6 dark:bg-gray-800">
+              <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-700">
+                <FolderIcon className="h-6 w-6 text-gray-500 dark:text-gray-400" />
+              </div>
+              <div className="space-y-1 text-center">
+                <h3 className="text-lg font-semibold">Case Management</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  Effortlessly manage all aspects of your cases, from client
+                  information to court dates, in one centralized location.
                 </p>
-              </a>
-            ))}
+              </div>
+            </div>
+            <div className="flex flex-col items-center justify-center space-y-4 rounded-lg bg-gray-100 p-6 dark:bg-gray-800">
+              <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-700">
+                <CalendarIcon className="h-6 w-6 text-gray-500 dark:text-gray-400" />
+              </div>
+              <div className="space-y-1 text-center">
+                <h3 className="text-lg font-semibold">Scheduling</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  Efficiently schedule hearings, meetings, and appointments,
+                  ensuring no conflicts and timely proceedings.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center justify-center space-y-4 rounded-lg bg-gray-100 p-6 dark:bg-gray-800">
+              <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-700">
+                <DocumentIcon className="h-6 w-6 text-gray-500 dark:text-gray-400" />
+              </div>
+              <div className="space-y-1 text-center">
+                <h3 className="text-lg font-semibold">Document Management</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  Easily upload, organize, and access case-related documents
+                  securely, ensuring data integrity and confidentiality.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
+  )
+}
+
+function FolderIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M21 4H10c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z" />
+    </svg>
+  )
+}
+
+function CalendarIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+      <line x1="16" y1="2" x2="16" y2="6" />
+      <line x1="8" y1="2" x2="8" y2="6" />
+      <line x1="3" y1="10" x2="21" y2="10" />
+    </svg>
+  )
+}
+
+function DocumentIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M20 4H10L4 14V20H20V4Z" />
+      <path d="M15 18H9V20H15V18Z" />
+      <path d="M16 14H8V16H16V14Z" />
+      <path d="M16 10H8V12H16V10Z" />
+    </svg>
   )
 }

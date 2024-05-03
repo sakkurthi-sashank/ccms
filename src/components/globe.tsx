@@ -414,7 +414,9 @@ export function GlobeDemo() {
             We Serve Worldwide
           </h2>
           <p className="mx-auto mt-2 max-w-md text-center text-base font-normal text-neutral-700 dark:text-neutral-200 md:text-lg">
-            Our services are available in 100+ countries around the globe.
+            Our services are available in 100+ countries around the globe. We
+            have a global footprint and a local presence in every corner of the
+            world.
           </p>
         </motion.div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-40 h-40 w-full select-none " />

@@ -19,6 +19,7 @@ export function Header() {
             CCMS
           </h4>
         </div>
+
         <div className="flex w-full items-center justify-end">
           <UserDropdown />
         </div>
